@@ -15,20 +15,7 @@ ApplicationWindow {
 
     header: MainToolBar {
         id: toolBar
-        RowLayout {
-            anchors.fill: parent
-            ToolButton {
-                height: Styles.toolButton.height
-                icon.source: "../resources/menu_icon.svg"
-                icon.color: "white"
-                background: Rectangle {
-                    anchors.fill: parent
-                    color: toolBar.background.color
-                }
-            }
-        }
     }
-
     StackView {
             id: stack
             initialItem: colorBasePage
