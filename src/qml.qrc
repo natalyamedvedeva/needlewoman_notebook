@@ -1,0 +1,15 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>controls/MainToolBar.qml</file>
+        <file>resources/menu_icon.svg</file>
+	<file>resources/more_icon.svg</file>
+        <file>controls/TriangularTabButton.qml</file>
+        <file>utils/Units.qml</file>
+        <file>utils/Styles.qml</file>
+        <file>pages/ColorBasePage.qml</file>
+        <file>controls/TabButtonShape.qml</file>
+        <file>controls/Line.qml</file>
+        <file>controls/TabToolBar.qml</file>
+    </qresource>
+</RCC>
