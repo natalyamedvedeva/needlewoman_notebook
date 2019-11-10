@@ -14,7 +14,7 @@ ToolBar {
     RowLayout {
         anchors.fill: parent
         ToolButton {
-            height: Styles.toolButton.height
+            Layout.leftMargin: (Styles.toolBar.height - textField.height - width + icon.width)/2
             icon.source: "../resources/menu_icon.svg"
             icon.color: "white"
             background: Rectangle {
@@ -24,7 +24,7 @@ ToolBar {
         }
         TextField {
             id: textField
-            font.pointSize: 8
+            font.pixelSize: Styles.font.normal
             font.family: "Open Sans"
             background: Rectangle {
             }

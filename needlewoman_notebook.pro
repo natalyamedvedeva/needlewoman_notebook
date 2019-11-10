@@ -1,4 +1,5 @@
 QT += quick
+QT += svg
 
 CONFIG += c++11
 

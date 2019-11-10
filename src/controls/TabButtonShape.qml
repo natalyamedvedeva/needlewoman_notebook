@@ -20,10 +20,17 @@ Item {
             strokeWidth: 1
             strokeStyle: ShapePath.SolidLine
             joinStyle: ShapePath.RoundJoin
-            startX: Units.dp(0); startY: Units.dp(40)
-            PathLine { x: Units.dp(40); y: Units.dp(0) }
-            PathLine { x: Units.dp(170); y: Units.dp(0) }
-            PathLine { x: Units.dp(210); y: Units.dp(40) }
+            startX: Units.dp(0); startY: Units.dp(35)
+            PathLine { x: Units.dp(35); y: Units.dp(0) }
+            PathLine { x: Units.dp(135); y: Units.dp(0) }
+            PathLine { x: Units.dp(170); y: Units.dp(35) }
+
+        }
+        ShapePath {
+            strokeColor: Styles.colorTheme.active
+            strokeWidth: 1
+            startX: Units.dp(0); startY: Units.dp(35)
+            PathLine { x: Units.dp(170); y: Units.dp(35) }
         }
     }
 }

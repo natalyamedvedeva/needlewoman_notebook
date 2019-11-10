@@ -5,7 +5,7 @@ import Units 1.0
 
 QtObject {
     property QtObject toolBar: QtObject {
-        property int height: Units.dp(70)
+        property int height: Units.dp(65)
     }
 
     property QtObject toolButton: QtObject {
@@ -13,8 +13,8 @@ QtObject {
     }
 
     property QtObject tabButton: QtObject {
-        property int height: Units.dp(40)
-        property int width: Units.dp(210)
+        property int height: Units.dp(35)
+        property int width: Units.dp(170)
     }
 
     property QtObject appWindow: QtObject {
@@ -24,12 +24,16 @@ QtObject {
 
     property QtObject colorTheme: QtObject {
         property string background: "#FA8072"
-        property string notActive: "#f2f2f2"
+        property string notActive: "#e8e8e8"
         property string active: "white"
     }
 
     property QtObject textField: QtObject {
         property int width: Units.dp(210)
+    }
+
+    property QtObject font: QtObject {
+        property int normal: Units.dp(18)
     }
 
 }
