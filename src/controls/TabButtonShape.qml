@@ -20,10 +20,10 @@ Item {
             strokeWidth: 1
             strokeStyle: ShapePath.SolidLine
             joinStyle: ShapePath.RoundJoin
-            startX: Units.dp(0); startY: Units.dp(35)
-            PathLine { x: Units.dp(35); y: Units.dp(0) }
-            PathLine { x: Units.dp(135); y: Units.dp(0) }
-            PathLine { x: Units.dp(170); y: Units.dp(35) }
+            startX: 0; startY: Styles.tabButton.height
+            PathLine { x: Styles.tabButton.height; y: 0 }
+            PathLine { x: Styles.tabButton.width - Styles.tabButton.height; y: 0 }
+            PathLine { x: Styles.tabButton.width; y: Styles.tabButton.height }
 
         }
         ShapePath {

@@ -25,7 +25,7 @@ ToolBar {
         TextField {
             id: textField
             font.pixelSize: Styles.font.normal
-            font.family: "Open Sans"
+            font.family: Styles.font.family
             background: Rectangle {
             }
             Layout.fillWidth: true

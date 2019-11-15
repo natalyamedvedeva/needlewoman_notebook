@@ -19,7 +19,7 @@ TabButton {
         anchors {
             centerIn: parent
         }
-        font.family: "Open Sans"
+        font.family: Styles.font.family
         font.pixelSize: Styles.font.normal
     }
 }

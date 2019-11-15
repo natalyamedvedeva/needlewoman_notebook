@@ -34,6 +34,7 @@ QtObject {
 
     property QtObject font: QtObject {
         property int normal: Units.dp(18)
+        property string family: "Calibri"
     }
 
 }
