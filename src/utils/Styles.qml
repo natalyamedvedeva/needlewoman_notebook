@@ -34,8 +34,18 @@ QtObject {
 
     property QtObject font: QtObject {
         property int normal: Units.dp(18)
-        property string family: "Calibri"
+        property int small: Units.dp(14)
+        property string family: "Open Sans"
+        property string tableHeaderColor: "#909090"
     }
 
+    property QtObject table: QtObject {
+        property int rowHeight: Units.dp(40)
+        property real numberWidth: 0.16
+        property real availableWidth: 0.14
+        property real quantityWidth: 0.14
+        property real nameWidth: 0.3
+        property real colorWidth: 0.2
+    }
 }
 

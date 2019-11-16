@@ -4,10 +4,16 @@
         <file>controls/MainToolBar.qml</file>
         <file>resources/menu_icon.svg</file>
         <file>resources/more_icon.svg</file>
+        <file>resources/calibri.ttf</file>
         <file>controls/TriangularTabButton.qml</file>
         <file>utils/Units.qml</file>
         <file>utils/Styles.qml</file>
         <file>pages/ColorBasePage.qml</file>
         <file>controls/TabButtonShape.qml</file>
+        <file>table_controls/FlossListView.qml</file>
+        <file>table_controls/SquareCheckBox.qml</file>
+        <file>table_controls/FlossTableView.qml</file>
+        <file>table_controls/TableCellText.qml</file>
+        <file>table_controls/TableHeader.qml</file>
     </qresource>
 </RCC>
