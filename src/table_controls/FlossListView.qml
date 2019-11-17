@@ -25,7 +25,7 @@ ListView {
                 SquareCheckBox {
                     checked: quantity > 0
                     enabled: false
-                    height: item.height * 0.8
+                    height: item.height * 0.47
                     anchors.centerIn: parent
                 }
             }

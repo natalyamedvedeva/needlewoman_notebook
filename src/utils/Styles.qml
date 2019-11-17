@@ -40,6 +40,7 @@ QtObject {
     }
 
     property QtObject table: QtObject {
+        property int headerHeight: Units.dp(30)
         property int rowHeight: Units.dp(40)
         property real numberWidth: 0.16
         property real availableWidth: 0.14

@@ -5,7 +5,7 @@ import Styles 1.0
 import Units 1.0
 
 Item {
-    height: Styles.table.rowHeight
+    height: Styles.table.headerHeight
     width: parent.width
     Rectangle {
         id: background

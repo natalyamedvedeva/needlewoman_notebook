@@ -4,6 +4,7 @@
         <file>controls/MainToolBar.qml</file>
         <file>resources/menu_icon.svg</file>
         <file>resources/more_icon.svg</file>
+	<file>resources/check.svg</file>
         <file>resources/calibri.ttf</file>
         <file>controls/TriangularTabButton.qml</file>
         <file>utils/Units.qml</file>

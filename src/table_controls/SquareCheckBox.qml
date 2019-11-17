@@ -11,13 +11,13 @@ CheckBox {
         implicitWidth: parent.height
         implicitHeight: parent.height
         border.color: "black"
-        Rectangle {
-            width: parent.width / 2
-            height: parent.height / 2
-            x: parent.width / 4
-            y: parent.height / 4
-            color: parent.border.color
+        Image {
             visible: parent.parent.checked
+            source: "../resources/check.svg"
+            sourceSize.height: parent.height
+            sourceSize.width: height
+            x: 0
+            y: 0
         }
     }
 }
