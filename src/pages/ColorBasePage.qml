@@ -5,6 +5,7 @@ import Styles 1.0
 import Units 1.0
 import "../controls"
 import "../table_controls"
+import "../utils/Database.js" as DB
 
 Page {
     TabBar {
@@ -40,32 +41,21 @@ Page {
         height: parent.height
         currentIndex: tabBar.currentIndex
         FlossTableView {
+            id: tableView
             Layout.preferredHeight: parent.height
             Layout.preferredWidth: parent.width
             width: parent.width
-            model: ListModel {
-                ListElement {
-                    number: "0001"
-                    available: true
-                    quantity: 9
-                    name: "синий синий синий синий"
-                    flossColor: "blue"
-                }
-                ListElement {
-                    number: "0002"
-                    available: false
-                    quantity: 0
-                    name: "красный красный красный красный"
-                    flossColor: "red"
-                }
-                ListElement {
-                    number: "0003"
-                    available: true
-                    quantity: 2
-                    name: "желтый желтый желтый желтый"
-                    flossColor: "yellow"
+            model: ListModel {}            
+        }
+            Component.onCompleted: {
+                loadFloss();
+            }
+
+            function loadFloss() {
+                let array = DB.readAll();
+                for (let val of array) {
+                    tableView.model.append(val);
                 }
             }
-        }
     }
 }

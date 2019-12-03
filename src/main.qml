@@ -5,6 +5,7 @@ import Styles 1.0
 import Units 1.0
 import "controls"
 import "pages"
+import "utils/Database.js" as DB
 
 ApplicationWindow {
     id:root
@@ -24,5 +25,9 @@ ApplicationWindow {
     ColorBasePage {
         id: colorBasePage
         width: parent.width
+    }
+    Component.onCompleted: {
+        DB.init();
+        DB.fillDatabase();
     }
 }
