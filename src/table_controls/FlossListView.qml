@@ -34,10 +34,15 @@ ListView {
                 font.pixelSize: Styles.font.normal
                 text: quantity
             }
-            TableCellText {
+            Item {
                 Layout.preferredWidth: parent.width * Styles.table.nameWidth
-                font.pixelSize: Styles.font.normal
-                text: name
+                Layout.alignment: Qt.AlignCenter
+                TableCellText {
+                    Layout.preferredWidth: parent.width * Styles.table.nameWidth
+                    font.pixelSize: Styles.font.normal
+                    horizontalAlignment: Text.Left
+                    text: name
+                }
             }
             Rectangle {
                 Layout.preferredWidth: parent.width * Styles.table.colorWidth
