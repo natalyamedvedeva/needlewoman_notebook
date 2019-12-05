@@ -4,11 +4,11 @@ function init() {
     const db = getHandle();
     try {
         db.transaction(function (tx) {
-            tx.executeSql('CREATE TABLE IF NOT EXISTS brand (id INTEGER PRIMARY KEY AUTOINCREMENT, name varchar(50) unique)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS brand (id INTEGER PRIMARY KEY, name varchar(50) unique)');
             tx.executeSql('CREATE TABLE IF NOT EXISTS brand_in_stock (brand_id int not null unique, FOREIGN KEY (brand_id) REFERENCES brand(id))');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS floss (id INTEGER PRIMARY KEY AUTOINCREMENT, brand_id int not null, number varchar(15), description varchar(200), rgb_color varchar(10), FOREIGN KEY (brand_id) REFERENCES brand(id), UNIQUE(brand_id, number) on conflict ignore)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS floss (id INTEGER PRIMARY KEY, brand_id int not null, number varchar(15), description varchar(200), rgb_color varchar(10), FOREIGN KEY (brand_id) REFERENCES brand(id), UNIQUE(brand_id, number) on conflict ignore)');
             tx.executeSql('CREATE TABLE IF NOT EXISTS floss_in_stock (floss_id int not null unique, quantity int DEFAULT 0 check(quantity >= 0), FOREIGN KEY (floss_id) REFERENCES floss(id))');
-            tx.executeSql('CREATE TABLE IF NOT EXISTS project (id INTEGER PRIMARY KEY AUTOINCREMENT, name text)');
+            tx.executeSql('CREATE TABLE IF NOT EXISTS project (id INTEGER PRIMARY KEY, name text)');
             tx.executeSql('CREATE TABLE IF NOT EXISTS project_floss (project_id int, floss_id, FOREIGN KEY (project_id) REFERENCES project(id), FOREIGN KEY (floss_id) REFERENCES floss(id))');
         })
     } catch (err) {
