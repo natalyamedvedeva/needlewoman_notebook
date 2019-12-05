@@ -8,7 +8,6 @@ import "pages"
 import "utils/Database.js" as DB
 
 ApplicationWindow {
-    id:root
     visible: true
     width: 360
     height: 640

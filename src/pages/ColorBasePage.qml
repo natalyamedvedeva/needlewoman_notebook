@@ -44,7 +44,7 @@ Page {
             model: ListModel {}
             FlossTableView {
                 id: tableView
-                Layout.preferredHeight: parent.height
+                Layout.preferredHeight: parent.parent.height
                 Layout.preferredWidth: parent.width
                 width: parent.width
                 model: ListModel {}

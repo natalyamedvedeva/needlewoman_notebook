@@ -16,7 +16,7 @@ Item {
         anchors.top: header.bottom
         id: list
         width: parent.width
-        height: parent.height
+        height: parent.height - header.height - Styles.tabButton.height
         ScrollBar.vertical: ScrollBar{}
     }
 }
