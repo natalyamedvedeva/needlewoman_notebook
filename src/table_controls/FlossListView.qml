@@ -36,9 +36,12 @@ ListView {
             }
             Item {
                 Layout.preferredWidth: parent.width * Styles.table.nameWidth
-                Layout.alignment: Qt.AlignCenter
-                TableCellText {
-                    Layout.preferredWidth: parent.width * Styles.table.nameWidth
+                Layout.preferredHeight: parent.height
+                Layout.alignment: Qt.AlignLeft
+                Text {
+                    anchors.verticalCenter: parent.verticalCenter
+                    font.family: Styles.font.family
+                    elide: Text.ElideRight
                     font.pixelSize: Styles.font.normal
                     horizontalAlignment: Text.Left
                     text: name

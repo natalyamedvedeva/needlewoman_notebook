@@ -83,7 +83,7 @@ function fillDatabase(){
     xhr.send(); // begin the request
 }
 
-function readAll(dictId) {
+/*function readAll(dictId) {
     const db = getHandle();
     let array = [];
     db.transaction(function (tx) {
@@ -97,6 +97,39 @@ function readAll(dictId) {
                            flossColor: result.rows.item(i).rgb_color,
                            id: result.rows.item(i).id
                          });
+        }
+    });
+    return array;
+}*/
+
+function getFlossWithBrand(brand_id) {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, rgb_color, description, number FROM floss WHERE brand_id = ?', [brand_id]);
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                           number: result.rows.item(i).number,
+                           available: true,
+                           quantity: 0,
+                           name: result.rows.item(i).description,
+                           flossColor: result.rows.item(i).rgb_color,
+                           id: result.rows.item(i).id
+                         });
+        }
+    });
+    return array;
+}
+
+function getBrandsInStock() {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, name FROM brand ORDER BY id');
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                         id: parseInt(result.rows.item(i).id),
+                          name: result.rows.item(i).name});
         }
     });
     return array;

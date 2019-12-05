@@ -22,8 +22,7 @@ Page {
                         color: Styles.colorTheme.background
                     }
         Repeater {
-            model: ["Gamma", "DMC", "ПНК"]
-
+            id: tabBarRepeater
             TriangularTabButton {
                 buttonText: modelData
             }
@@ -40,22 +39,26 @@ Page {
         width: parent.width
         height: parent.height
         currentIndex: tabBar.currentIndex
-        FlossTableView {
-            id: tableView
-            Layout.preferredHeight: parent.height
-            Layout.preferredWidth: parent.width
-            width: parent.width
-            model: ListModel {}            
-        }
-            Component.onCompleted: {
-                loadFloss();
-            }
-
-            function loadFloss() {
-                let array = DB.readAll();
-                for (let val of array) {
-                    tableView.model.append(val);
+        Repeater {
+            id: tabRepeater
+            model: ListModel {}
+            FlossTableView {
+                id: tableView
+                Layout.preferredHeight: parent.height
+                Layout.preferredWidth: parent.width
+                width: parent.width
+                model: ListModel {}
+                Component.onCompleted: {
+                    model.append(DB.getFlossWithBrand(modelData))
                 }
             }
+        }
+
+    }
+    function fillTables() {
+        var brands = DB.getBrandsInStock();
+        tabBarRepeater.model = brands.map(function(x) { return x.name; });
+        tabRepeater.model = brands.map(function(x) { return x.id; });
+
     }
 }

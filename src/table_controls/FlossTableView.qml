@@ -17,5 +17,6 @@ Item {
         id: list
         width: parent.width
         height: parent.height
+        ScrollBar.vertical: ScrollBar{}
     }
 }
