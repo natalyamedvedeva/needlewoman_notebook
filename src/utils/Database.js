@@ -121,35 +121,18 @@ function getFlossWithBrand(brand_id) {
     return array;
 }
 
-function getFlossWithBrand(brand_id) {
-    const db = getHandle();
-    let array = [];
-    db.transaction(function (tx) {
-        const result = tx.executeSql('SELECT id, rgb_color, description, number FROM floss WHERE brand_id = ?', [brand_id]);
-        for (let i = 0; i < result.rows.length; i++) {
-            array.push({
-                           number: result.rows.item(i).number,
-                           available: true,
-                           quantity: 0,
-                           name: result.rows.item(i).description,
-                           flossColor: result.rows.item(i).rgb_color,
-                           id: result.rows.item(i).id
-                         });
-        }
-    });
-    return array;
-}
-
 function getSuitableFloss(brand_id, available, text) {
     const db = getHandle();
+    var capital = text.charAt(0).toUpperCase() + text.slice(1);
+    var lower = text.toLowerCase();
     let array = [];
     db.transaction(function (tx) {
-        const result = tx.executeSql('SELECT id, rgb_color, description, number FROM floss WHERE brand_id = ?', [brand_id]);// , AND (number LIKE \'%?%\' OR description LIKE \'%?%\')
+        const result = tx.executeSql('SELECT floss.id as id, rgb_color, description, number, CAST(COALESCE(quantity, 0) AS INTEGER) AS q FROM floss LEFT JOIN floss_in_stock ON floss.id = floss_in_stock.floss_id WHERE brand_id = ? AND (number LIKE ? OR description LIKE ? OR description LIKE ?) AND (' + available + ' = 0 OR (' + available + ' = 1 AND q > 0) OR (' + available + ' = 2 AND q = 0))', [brand_id, "%" + text + "%", capital + "%",  "%" + lower + "%"]);
         for (let i = 0; i < result.rows.length; i++) {
             array.push({
                            number: result.rows.item(i).number,
-                           available: true,
-                           quantity: 0,
+                           available: result.rows.item(i).q > 0,
+                           quantity: result.rows.item(i).q,
                            name: result.rows.item(i).description,
                            flossColor: result.rows.item(i).rgb_color,
                            id: result.rows.item(i).id

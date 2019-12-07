@@ -8,7 +8,7 @@ import Units 1.0
 
 ToolBar {
     property alias filter: textField.text
-    property int available: comboBox.currentValue()
+    property alias available: comboBox.currentIndex
     width: parent.width
     height: Styles.toolBar.height
     background: Rectangle {
@@ -35,6 +35,9 @@ ToolBar {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
             placeholderText: qsTr("Найти оттенок...")
+            onTextChanged: {
+                colorBasePage.update();
+            }
         }
         ComboBox {
            id: comboBox
@@ -79,13 +82,8 @@ ToolBar {
                horizontalAlignment: Text.AlignRight
                elide: Text.ElideRight
            }
-           function currentValue() {
-               if (currentIndex == 0)
-                   return -1;
-               else if (currentIndex == 1)
-                   return 1;
-               else
-                   return 0;
+           onCurrentIndexChanged: {
+               colorBasePage.update();
            }
         }
     }

@@ -24,6 +24,6 @@ Item {
     }
     function fillTable() {
         model.clear();
-        model.append(DB.getSuitableFloss(brand, toolBar.filter, toolBar.available))
+        model.append(DB.getSuitableFloss(brand, toolBar.available, toolBar.filter));
     }
 }
