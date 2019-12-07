@@ -35,6 +35,7 @@ QtObject {
     property QtObject font: QtObject {
         property int normal: Units.dp(18)
         property int small: Units.dp(14)
+        property int tiny: Units.dp(12)
         property string family: "Open Sans"
         property string tableHeaderColor: "#909090"
     }

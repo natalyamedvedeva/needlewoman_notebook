@@ -35,30 +35,31 @@ Page {
     }
 
     StackLayout {
+        id: tabs
         anchors.top: tabBar.bottom
         width: parent.width
-        height: parent.height
+        height: parent.height - Styles.table.headerHeight - Styles.tabButton.height
         currentIndex: tabBar.currentIndex
         Repeater {
             id: tabRepeater
-            model: ListModel {}
             FlossTableView {
-                id: tableView
-                Layout.preferredHeight: parent.parent.height
                 Layout.preferredWidth: parent.width
+                Layout.fillHeight: true
                 width: parent.width
-                model: ListModel {}
-                Component.onCompleted: {
-                    model.append(DB.getFlossWithBrand(modelData))
-                }
+                brand: modelData
             }
         }
 
     }
-    function fillTables() {
+    function createTables() {
         var brands = DB.getBrandsInStock();
         tabBarRepeater.model = brands.map(function(x) { return x.name; });
         tabRepeater.model = brands.map(function(x) { return x.id; });
-
+        update();
+    }
+    function update() {
+        for (var i = 0; i < tabs.count; i++) {
+            tabs.itemAt(i).fillTable();
+        }
     }
 }

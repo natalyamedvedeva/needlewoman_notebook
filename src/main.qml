@@ -28,6 +28,6 @@ ApplicationWindow {
     Component.onCompleted: {
         DB.init();
         DB.fillDatabase();
-        colorBasePage.fillTables();
+        colorBasePage.createTables();
     }
 }

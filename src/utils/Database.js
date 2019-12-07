@@ -121,6 +121,44 @@ function getFlossWithBrand(brand_id) {
     return array;
 }
 
+function getFlossWithBrand(brand_id) {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, rgb_color, description, number FROM floss WHERE brand_id = ?', [brand_id]);
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                           number: result.rows.item(i).number,
+                           available: true,
+                           quantity: 0,
+                           name: result.rows.item(i).description,
+                           flossColor: result.rows.item(i).rgb_color,
+                           id: result.rows.item(i).id
+                         });
+        }
+    });
+    return array;
+}
+
+function getSuitableFloss(brand_id, available, text) {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, rgb_color, description, number FROM floss WHERE brand_id = ?', [brand_id]);// , AND (number LIKE \'%?%\' OR description LIKE \'%?%\')
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                           number: result.rows.item(i).number,
+                           available: true,
+                           quantity: 0,
+                           name: result.rows.item(i).description,
+                           flossColor: result.rows.item(i).rgb_color,
+                           id: result.rows.item(i).id
+                         });
+        }
+    });
+    return array;
+}
+
 function getBrandsInStock() {
     const db = getHandle();
     let array = [];

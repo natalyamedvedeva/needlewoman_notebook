@@ -1,10 +1,14 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
+import QtQuick.Controls.Styles 1.4
+import QtGraphicalEffects 1.0
 import Styles 1.0
 import Units 1.0
 
 ToolBar {
+    property alias filter: textField.text
+    property int available: comboBox.currentValue()
     width: parent.width
     height: Styles.toolBar.height
     background: Rectangle {
@@ -30,8 +34,59 @@ ToolBar {
             }
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
-            Layout.rightMargin: (Styles.toolBar.height - height)/2
             placeholderText: qsTr("Найти оттенок...")
+        }
+        ComboBox {
+           id: comboBox
+           Layout.rightMargin: (Styles.toolBar.height - textField.height)/2
+           Layout.preferredWidth: parent.width * 0.3
+           Layout.alignment: Qt.AlignVCenter
+           font.pixelSize: Styles.font.small
+           font.family: Styles.font.family
+           editable: false
+           model: [qsTr("Все"), qsTr("В наличии"), qsTr("Отсутствуют")]
+           delegate: ItemDelegate {
+                       id: itemDelegate
+                       width: parent.width
+                       text: comboBox.textRole ? (Array.isArray(comboBox.model) ? modelData[comboBox.textRole] : model[comboBox.textRole]) : modelData
+                       font.pixelSize: Styles.font.small
+
+                       contentItem: Label {
+                           text: itemDelegate.text
+                           font: itemDelegate.font
+                           elide: Label.ElideRight
+                           verticalAlignment: Label.AlignVCenter
+                       }
+                   }
+
+           background: Rectangle {
+               anchors.fill: parent
+               color: Styles.colorTheme.background
+           }
+           indicator:Image {
+               id: icon
+               horizontalAlignment: Image.AlignRight
+               source: "../resources/arrow.svg";
+               sourceSize.height: textField.height
+               sourceSize.width: height
+               x: comboBox.width - sourceSize.height
+           }
+           contentItem: Text {
+               text: comboBox.displayText
+               font: comboBox.font
+               color: "white"
+               verticalAlignment: Text.AlignVCenter
+               horizontalAlignment: Text.AlignRight
+               elide: Text.ElideRight
+           }
+           function currentValue() {
+               if (currentIndex == 0)
+                   return -1;
+               else if (currentIndex == 1)
+                   return 1;
+               else
+                   return 0;
+           }
         }
     }
 }
