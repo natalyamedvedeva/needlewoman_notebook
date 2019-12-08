@@ -3,6 +3,7 @@ import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
 import Styles 1.0
 import Units 1.0
+import "../pages"
 
 ListView {
     id: listView
@@ -60,5 +61,16 @@ ListView {
                 }
             }
         }
+    }
+    MouseArea {
+        id: mouseArea
+        anchors.fill: parent
+        onClicked: {
+            popup.open()
+        }
+    }
+    EditFlossPopup{
+        id: popup
+        number: item.number
     }
 }

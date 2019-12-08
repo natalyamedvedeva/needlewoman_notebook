@@ -5,7 +5,7 @@
         <file>resources/menu_icon.svg</file>
         <file>resources/more_icon.svg</file>
         <file>resources/check.svg</file>
-	<file>resources/arrow.svg</file>
+        <file>resources/arrow.svg</file>
         <file>resources/calibri.ttf</file>
         <file>controls/TriangularTabButton.qml</file>
         <file>utils/Units.qml</file>
@@ -20,5 +20,9 @@
         <file>utils/Database.js</file>
         <file>data/floss.json</file>
         <file>data/test.json</file>
+        <file>pages/EditFlossPopup.qml</file>
+        <file>controls/Counter.qml</file>
+        <file>controls/CircleButton.qml</file>
+        <file>controls/RecButton.qml</file>
     </qresource>
 </RCC>

@@ -33,6 +33,7 @@ QtObject {
     }
 
     property QtObject font: QtObject {
+        property int large: Units.dp(22)
         property int normal: Units.dp(18)
         property int small: Units.dp(14)
         property int tiny: Units.dp(12)

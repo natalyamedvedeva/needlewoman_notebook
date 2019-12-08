@@ -8,6 +8,7 @@ import "pages"
 import "utils/Database.js" as DB
 
 ApplicationWindow {
+    id: root
     visible: true
     width: 360
     height: 640
@@ -29,5 +30,8 @@ ApplicationWindow {
         DB.init();
         DB.fillDatabase();
         colorBasePage.createTables();
+    }
+    function isLandscape() {
+        return root.width > root.height
     }
 }
