@@ -7,6 +7,7 @@ import "../pages"
 
 ListView {
     id: listView
+    property int currentItemIndex: 0
     delegate: Item {
         id: item
         height: Styles.table.rowHeight
@@ -61,16 +62,19 @@ ListView {
                 }
             }
         }
-    }
-    MouseArea {
-        id: mouseArea
-        anchors.fill: parent
-        onClicked: {
-            popup.open()
+        MouseArea {
+            id: mouseArea
+            anchors.fill: parent
+            onClicked: {
+                currentItemIndex = index
+                popup.open()
+            }
         }
-    }
-    EditFlossPopup{
-        id: popup
-        number: item.number
+        EditFlossPopup{
+            id: popup
+        }
+        function update(newQuantity) {
+            quantity = newQuantity;
+        }
     }
 }

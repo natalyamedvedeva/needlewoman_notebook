@@ -4,18 +4,15 @@ import QtQuick.Layouts 1.12
 import Styles 1.0
 import Units 1.0
 import "../controls"
+import "../utils/Database.js" as DB
 
 Popup {
-    property alias brand: brand.text
-    property alias number: number.text
-    property alias color: color.color
-
     id: popup
-    width: root.isLandscape() ? root.width * 0.5  : root.width * 0.8
-    height: root.isLandscape() ? root.height * 0.6 : root.height * 0.35
-    x: (root.width - width) / 2
-    y: (root.height - height)/2 - Styles.toolBar.height - Styles.tabButton.height
-    leftPadding: width * 0.08
+    width: Units.dp(320)
+    height: Units.dp(180)
+    parent: Overlay.overlay
+    anchors.centerIn: parent
+    leftPadding: width * 0.06
     rightPadding: leftPadding
     modal: true
     background: Rectangle {
@@ -30,7 +27,7 @@ Popup {
             width: parent.width
             spacing: width / 8
             Text {
-                id: brand
+                text: tabBar.currentItem.buttonText
                 width: parent.width/4
                 horizontalAlignment: Text.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -38,7 +35,7 @@ Popup {
                 font.family: Styles.font.family
             }
             Text {
-                id: number
+                text: number
                 width: parent.width/4
                 horizontalAlignment: Text.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
@@ -46,7 +43,7 @@ Popup {
                 font.family: Styles.font.family
             }
             Rectangle {
-                id: color
+                color: flossColor
                 width: parent.width/4
                 height: parent.height * 0.8
                 anchors.verticalCenter: parent.verticalCenter
@@ -55,6 +52,7 @@ Popup {
 
         }
         Counter {
+            id: counter
             height: parent.height /4
         }
         Row {
@@ -75,6 +73,15 @@ Popup {
                 anchors.verticalCenter: parent.verticalCenter
                 btext: qsTr("Сохранить")
                 width: parent.width * 0.45
+                onClicked: {
+                    DB.insertFlossInStock(floss_id, counter.value);
+                    popup.close();
+                    if (counter.value === 0 && toolBar.available !== 2 || counter.value > 0 && toolBar.available === 2) {
+                        listView.model.remove(item);
+                    } else {
+                       item.update(counter.value);
+                    }
+                }
             }
         }
     }

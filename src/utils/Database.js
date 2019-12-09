@@ -26,30 +26,6 @@ function getHandle() {
     return db;
 }
 
-/*function insertBrand(db, brand_name) {
-    let id = 0
-    try {
-        db.transaction(function (tx) {
-            tx.executeSql('INSERT OR IGNORE INTO brand (name) VALUES (?)', [brand_name]);
-            id = tx.executeSql('select id from brand where name = ?',[brand_name]).rows.item(0).id;
-        })
-    } catch (err) {
-        console.log("Error insert in table brand: " + err);
-    };
-    return parseInt(id);
-}
-
-function insertFloss(db, number, description, brand, rgb_color) {
-    try {
-        db.transaction(function (tx) {
-            var brand_id = insertBrand(db, brand)
-            tx.executeSql('INSERT OR IGNORE INTO floss (brand_id, number, description, rgb_color) VALUES (?, ?, ?, ?)', [brand_id, number, description, rgb_color]);
-        })
-    } catch (err) {
-        console.log("Error insert in table floss: " + err);
-    };
-}*/
-
 function insertFlossFromJson(array) {
     const db = getHandle();
     var currentBrand = ""
@@ -83,25 +59,6 @@ function fillDatabase(){
     xhr.send(); // begin the request
 }
 
-/*function readAll(dictId) {
-    const db = getHandle();
-    let array = [];
-    db.transaction(function (tx) {
-        const result = tx.executeSql('SELECT id, rgb_color, description, brand_id, number FROM floss');
-        for (let i = 0; i < result.rows.length; i++) {
-            array.push({
-                           number: result.rows.item(i).number,
-                           available: true,
-                           quantity: result.rows.item(i).brand_id,
-                           name: result.rows.item(i).description,
-                           flossColor: result.rows.item(i).rgb_color,
-                           id: result.rows.item(i).id
-                         });
-        }
-    });
-    return array;
-}*/
-
 function getFlossWithBrand(brand_id) {
     const db = getHandle();
     let array = [];
@@ -127,7 +84,7 @@ function getSuitableFloss(brand_id, available, text) {
     var lower = text.toLowerCase();
     let array = [];
     db.transaction(function (tx) {
-        const result = tx.executeSql('SELECT floss.id as id, rgb_color, description, number, CAST(COALESCE(quantity, 0) AS INTEGER) AS q FROM floss LEFT JOIN floss_in_stock ON floss.id = floss_in_stock.floss_id WHERE brand_id = ? AND (number LIKE ? OR description LIKE ? OR description LIKE ?) AND (' + available + ' = 0 OR (' + available + ' = 1 AND q > 0) OR (' + available + ' = 2 AND q = 0))', [brand_id, "%" + text + "%", capital + "%",  "%" + lower + "%"]);
+        const result = tx.executeSql('SELECT floss.id as id, rgb_color, description, number, COALESCE(quantity, 0) AS q FROM floss LEFT JOIN floss_in_stock ON floss.id = floss_in_stock.floss_id WHERE brand_id = ? AND (number LIKE ? OR description LIKE ? OR description LIKE ?) AND (' + available + ' = 0 OR (' + available + ' = 1 AND q > 0) OR (' + available + ' = 2 AND q = 0))', [brand_id, "%" + text + "%", capital + "%",  "%" + lower + "%"]);
         for (let i = 0; i < result.rows.length; i++) {
             array.push({
                            number: result.rows.item(i).number,
@@ -135,7 +92,7 @@ function getSuitableFloss(brand_id, available, text) {
                            quantity: result.rows.item(i).q,
                            name: result.rows.item(i).description,
                            flossColor: result.rows.item(i).rgb_color,
-                           id: result.rows.item(i).id
+                           floss_id: result.rows.item(i).id
                          });
         }
     });
@@ -154,5 +111,16 @@ function getBrandsInStock() {
         }
     });
     return array;
+}
+
+function insertFlossInStock(floss_id, quantity) {
+    const db = getHandle();
+    db.transaction(function (tx) {
+       if (quantity === 0) {
+           tx.executeSql('DELETE FROM floss_in_stock WHERE floss_id = ?', [floss_id])
+       } else {
+          tx.executeSql('INSERT OR REPLACE INTO floss_in_stock(floss_id, quantity) VALUES(?, ?)', [floss_id, quantity])
+       }
+    });
 }
 

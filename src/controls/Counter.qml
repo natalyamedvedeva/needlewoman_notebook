@@ -1,10 +1,10 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-
+import Styles 1.0
 
 Row {
-    property int value: 0
+    property int value: quantity
     spacing: height * 0.1
     anchors.horizontalCenter: parent.horizontalCenter
     CircleButton {
@@ -21,6 +21,8 @@ Row {
         anchors.verticalCenter: parent.verticalCenter
         width: parent.height
         horizontalAlignment: Label.AlignHCenter
+        font.pixelSize: Styles.font.normal
+        font.family: Styles.font.family
     }
     CircleButton {
         btext: "+"

@@ -10,6 +10,7 @@ import "../utils/Database.js" as DB
 Page {
     TabBar {
         property int prevCurrentIndex: 0
+
         id: tabBar
         z: 2
         contentWidth: parent.width
