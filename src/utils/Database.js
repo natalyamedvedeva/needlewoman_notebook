@@ -103,11 +103,11 @@ function getBrandsInStock() {
     const db = getHandle();
     let array = [];
     db.transaction(function (tx) {
-        const result = tx.executeSql('SELECT id, name FROM brand ORDER BY id');
+        const result = tx.executeSql('SELECT id, name FROM brand_in_stock LEFT JOIN brand ON brand.id = brand_in_stock.brand_id');
         for (let i = 0; i < result.rows.length; i++) {
             array.push({
                          id: parseInt(result.rows.item(i).id),
-                          name: result.rows.item(i).name});
+                         name: result.rows.item(i).name});
         }
     });
     return array;
@@ -121,6 +121,27 @@ function insertFlossInStock(floss_id, quantity) {
        } else {
           tx.executeSql('INSERT OR REPLACE INTO floss_in_stock(floss_id, quantity) VALUES(?, ?)', [floss_id, quantity])
        }
+    });
+}
+
+function getUnusedBrands() {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT ids.id, name FROM (SELECT id FROM brand EXCEPT SELECT brand_id FROM brand_in_stock) as ids LEFT JOIN brand ON ids.id = brand.id');
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                         id: parseInt(result.rows.item(i).id),
+                         name: result.rows.item(i).name});
+        }
+    });
+    return array;
+}
+
+function insertBrandInStock(brand_id) {
+    const db = getHandle();
+    db.transaction(function (tx) {
+        tx.executeSql('INSERT OR IGNORE INTO brand_in_stock(brand_id) VALUES(?)', [brand_id])
     });
 }
 

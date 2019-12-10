@@ -1,10 +1,10 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
 import QtQuick.Layouts 1.12
-import QtQuick.Controls.Styles 1.4
 import QtGraphicalEffects 1.0
 import Styles 1.0
 import Units 1.0
+import "../pages"
 
 ToolBar {
     property alias filter: textField.text
@@ -25,7 +25,14 @@ ToolBar {
                 anchors.fill: parent
                 color: Styles.colorTheme.background
             }
+            onClicked: {
+                menu.open();
+            }
         }
+        MenuPage {
+            id: menu
+        }
+
         TextField {
             id: textField
             font.pixelSize: Styles.font.normal
@@ -41,15 +48,14 @@ ToolBar {
             }
         }
         ComboBox {
-           id: comboBox
-           Layout.rightMargin: (Styles.toolBar.height - textField.height)/2
-           Layout.preferredWidth: parent.width * 0.3
-           Layout.alignment: Qt.AlignVCenter
-           font.pixelSize: Styles.font.small
-           font.family: Styles.font.family
-           editable: false
-           model: [qsTr("Все"), qsTr("В наличии"), qsTr("Отсутствуют")]
-           delegate: ItemDelegate {
+            id: comboBox
+            Layout.rightMargin: (Styles.toolBar.height - textField.height)/2
+            Layout.preferredWidth: parent.width * 0.3
+            Layout.alignment: Qt.AlignVCenter
+            model: [qsTr("Все"), qsTr("В наличии"), qsTr("Отсутствуют")]
+            font.pixelSize: Styles.font.small
+            editable: false
+            delegate: ItemDelegate {
                        id: itemDelegate
                        width: parent.width
                        text: comboBox.textRole ? (Array.isArray(comboBox.model) ? modelData[comboBox.textRole] : model[comboBox.textRole]) : modelData
@@ -60,6 +66,7 @@ ToolBar {
                            font: itemDelegate.font
                            elide: Label.ElideRight
                            verticalAlignment: Label.AlignVCenter
+                           horizontalAlignment: Label.AlignHCenter
                        }
                    }
 

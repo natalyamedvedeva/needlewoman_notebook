@@ -50,5 +50,9 @@ QtObject {
         property real nameWidth: 0.3
         property real colorWidth: 0.2
     }
+
+    property QtObject menu: QtObject {
+        property int itemHeight: Units.dp(50.5)
+    }
 }
 

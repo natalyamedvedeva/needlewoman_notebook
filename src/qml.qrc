@@ -6,6 +6,7 @@
         <file>resources/more_icon.svg</file>
         <file>resources/check.svg</file>
         <file>resources/arrow.svg</file>
+        <file>resources/back.svg</file>
         <file>resources/calibri.ttf</file>
         <file>controls/TriangularTabButton.qml</file>
         <file>utils/Units.qml</file>
@@ -24,5 +25,8 @@
         <file>controls/Counter.qml</file>
         <file>controls/CircleButton.qml</file>
         <file>controls/RecButton.qml</file>
+        <file>pages/MenuPage.qml</file>
+        <file>controls/MenuItem.qml</file>
+        <file>pages/AddBrandPopup.qml</file>
     </qresource>
 </RCC>

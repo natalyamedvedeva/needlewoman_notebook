@@ -8,6 +8,7 @@ import "../table_controls"
 import "../utils/Database.js" as DB
 
 Page {
+    property alias flossModel: tabBarRepeater.model
     TabBar {
         property int prevCurrentIndex: 0
 
@@ -17,15 +18,14 @@ Page {
         width: parent.width
         height: Styles.tabButton.height
         background: Rectangle {
-                        anchors {
-                            fill: parent
-                        }
-                        color: Styles.colorTheme.background
-                    }
+            anchors.fill: parent
+            color: Styles.colorTheme.background
+        }
         Repeater {
             id: tabBarRepeater
+            model: ListModel {}
             TriangularTabButton {
-                buttonText: modelData
+                buttonText: name
             }
         }
         onCurrentIndexChanged: {
@@ -43,24 +43,28 @@ Page {
         currentIndex: tabBar.currentIndex
         Repeater {
             id: tabRepeater
+            model: flossModel
             FlossTableView {
                 Layout.preferredWidth: parent.width
                 Layout.fillHeight: true
                 width: parent.width
-                brand: modelData
+                brand: id
             }
         }
 
     }
     function createTables() {
         var brands = DB.getBrandsInStock();
-        tabBarRepeater.model = brands.map(function(x) { return x.name; });
-        tabRepeater.model = brands.map(function(x) { return x.id; });
+        flossModel.append(brands);
         update();
     }
     function update() {
         for (var i = 0; i < tabs.count; i++) {
             tabs.itemAt(i).fillTable();
         }
+    }
+    function addBrand(item) {
+        flossModel.append(item);
+        tabs.itemAt(tabs.count - 1).fillTable();
     }
 }
