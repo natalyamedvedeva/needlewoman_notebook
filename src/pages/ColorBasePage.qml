@@ -40,19 +40,20 @@ Page {
         }
     }
 
-    StackLayout {
+    SwipeView {
         id: tabs
         anchors.top: tabBar.bottom
         width: parent.width
         height: parent.height - Styles.table.headerHeight - Styles.tabButton.height
         currentIndex: tabBar.currentIndex
+        interactive: false
+
         Repeater {
             id: tabRepeater
             model: flossModel
             FlossTableView {
                 Layout.preferredWidth: parent.width
                 Layout.preferredHeight: parent.height
-                width: parent.width
                 brand: id
                 brandName: name
             }
