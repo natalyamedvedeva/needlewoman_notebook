@@ -141,7 +141,22 @@ function getUnusedBrands() {
 function insertBrandInStock(brand_id) {
     const db = getHandle();
     db.transaction(function (tx) {
-        tx.executeSql('INSERT OR IGNORE INTO brand_in_stock(brand_id) VALUES(?)', [brand_id])
+        tx.executeSql('INSERT OR IGNORE INTO brand_in_stock(brand_id) VALUES(?)', [brand_id]);
+    });
+}
+
+function hideBrand(id) {
+    const db = getHandle();
+    db.transaction(function (tx) {
+        tx.executeSql('DELETE FROM brand_in_stock WHERE brand_id = ?', [id]);
+    });
+}
+
+function deleteBrand(id) {
+    const db = getHandle();
+    db.transaction(function (tx) {
+        tx.executeSql('DELETE FROM brand_in_stock WHERE brand_id = ?', [id]);
+        tx.executeSql('DELETE FROM floss_in_stock WHERE floss_id IN (SELECT floss_id FROM floss_in_stock LEFT JOIN floss ON floss.id = floss_in_stock.floss_id WHERE floss.brand_id = ?)', [id]);
     });
 }
 

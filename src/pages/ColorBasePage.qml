@@ -10,7 +10,7 @@ import "../utils/Database.js" as DB
 Page {
     property alias flossModel: tabBarRepeater.model
     TabBar {
-        property int prevCurrentIndex: 0
+        property TabButton prevItem: currentItem
 
         id: tabBar
         z: 2
@@ -26,12 +26,17 @@ Page {
             model: ListModel {}
             TriangularTabButton {
                 buttonText: name
+                brand_id: id
             }
         }
-        onCurrentIndexChanged: {
-            itemAt(prevCurrentIndex).color = Styles.colorTheme.notActive;
-            currentItem.color = Styles.colorTheme.active;
-            prevCurrentIndex = currentIndex;
+        onCurrentItemChanged: {
+            if (prevItem != null) {
+                prevItem.color = Styles.colorTheme.notActive;
+            }
+            if (currentItem != null) {
+                currentItem.color = Styles.colorTheme.active;
+                prevItem = currentItem;
+            }
         }
     }
 
@@ -46,12 +51,19 @@ Page {
             model: flossModel
             FlossTableView {
                 Layout.preferredWidth: parent.width
-                Layout.fillHeight: true
+                Layout.preferredHeight: parent.height
                 width: parent.width
                 brand: id
+                brandName: name
             }
         }
 
+    }
+
+    Component.onCompleted: {
+        DB.init();
+        DB.fillDatabase();
+        createTables();
     }
     function createTables() {
         var brands = DB.getBrandsInStock();
@@ -66,5 +78,17 @@ Page {
     function addBrand(item) {
         flossModel.append(item);
         tabs.itemAt(tabs.count - 1).fillTable();
+    }
+    function deleteBrand(id) {
+        for (var i = 0; i < flossModel.count; i++) {
+            if (flossModel.get(i).id === id) {
+                if (tabBar.currentIndex === 0 && i === 0 && flossModel.count > 1) {
+                    tabBar.itemAt(1).color = Styles.colorTheme.active;
+                    tabBar.prevItem = tabBar.itemAt(1);
+                }
+                flossModel.remove(i);
+                return;
+            }
+        }
     }
 }

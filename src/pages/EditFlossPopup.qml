@@ -27,12 +27,12 @@ Popup {
             width: parent.width
             spacing: width / 8
             Text {
-                text: tabBar.currentItem.buttonText
                 width: parent.width/4
                 horizontalAlignment: Text.AlignHCenter
                 anchors.verticalCenter: parent.verticalCenter
                 font.pixelSize: Styles.font.normal
                 font.family: Styles.font.family
+                text: listView.brandName
             }
             Text {
                 text: number
@@ -76,8 +76,8 @@ Popup {
                 onClicked: {
                     DB.insertFlossInStock(floss_id, counter.value);
                     popup.close();
-                    if (counter.value === 0 && toolBar.available !== 2 || counter.value > 0 && toolBar.available === 2) {
-                        listView.model.remove(item);
+                    if (counter.value === 0 && toolBar.available === 1 || counter.value > 0 && toolBar.available === 2) {
+                        listView.model.remove(listView.currentItemIndex);
                     } else {
                        item.update(counter.value);
                     }

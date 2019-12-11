@@ -7,6 +7,7 @@ import "../utils/Database.js" as DB
 
 Item {
     property alias model: list.model
+    property alias brandName: list.brandName
     property int brand: 0
     TableHeader {
         id: header
@@ -17,13 +18,15 @@ Item {
     FlossListView {
         anchors.top: header.bottom
         id: list
-        model: ListModel{}
         width: parent.width
         height: parent.height
         ScrollBar.vertical: ScrollBar{}
     }
     function fillTable() {
         model.clear();
-        model.append(DB.getSuitableFloss(brand, toolBar.available, toolBar.filter));
+        let data = DB.getSuitableFloss(brand, toolBar.available, toolBar.filter);
+        for (let item of data) {
+            model.append(item);
+        }
     }
 }

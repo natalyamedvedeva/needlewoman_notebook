@@ -8,8 +8,11 @@ import "../pages"
 ListView {
     id: listView
     property int currentItemIndex: 0
+    property string brandName: ""
+    model: ListModel{}
     delegate: Item {
         id: item
+        property alias brandName: brandText.text
         height: Styles.table.rowHeight
         width: parent.width
         RowLayout {
@@ -41,6 +44,7 @@ ListView {
                 Layout.preferredHeight: parent.height
                 Layout.alignment: Qt.AlignLeft
                 Text {
+                    id: brandText
                     anchors.verticalCenter: parent.verticalCenter
                     font.family: Styles.font.family
                     elide: Text.ElideRight

@@ -50,7 +50,7 @@ ToolBar {
         ComboBox {
             id: comboBox
             Layout.rightMargin: (Styles.toolBar.height - textField.height)/2
-            Layout.preferredWidth: parent.width * 0.3
+            Layout.preferredWidth: Units.dp(122)
             Layout.alignment: Qt.AlignVCenter
             model: [qsTr("Все"), qsTr("В наличии"), qsTr("Отсутствуют")]
             font.pixelSize: Styles.font.small

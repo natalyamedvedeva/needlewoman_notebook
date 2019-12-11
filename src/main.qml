@@ -24,12 +24,7 @@ ApplicationWindow {
     }
     ColorBasePage {
         id: colorBasePage
-        width: parent.width
-    }
-    Component.onCompleted: {
-        DB.init();
-        DB.fillDatabase();
-        colorBasePage.createTables();
+        anchors.fill: parent
     }
     function isLandscape() {
         return root.width > root.height
