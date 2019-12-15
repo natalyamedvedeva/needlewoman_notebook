@@ -39,19 +39,16 @@ ListView {
                 font.pixelSize: Styles.font.normal
                 text: quantity
             }
-            Item {
+            Text {
+                id: brandText
                 Layout.preferredWidth: parent.width * Styles.table.nameWidth
-                Layout.preferredHeight: parent.height
-                Layout.alignment: Qt.AlignLeft
-                Text {
-                    id: brandText
-                    anchors.verticalCenter: parent.verticalCenter
-                    font.family: Styles.font.family
-                    elide: Text.ElideRight
-                    font.pixelSize: Styles.font.normal
-                    horizontalAlignment: Text.Left
-                    text: name
-                }
+                Layout.fillWidth: true
+                font.pixelSize: Styles.font.normal
+                Layout.alignment: Qt.AlignCenter
+                font.family: Styles.font.family
+                clip: true
+                horizontalAlignment: Text.Left
+                text: name
             }
             Rectangle {
                 Layout.preferredWidth: parent.width * Styles.table.colorWidth

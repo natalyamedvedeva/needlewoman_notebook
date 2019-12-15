@@ -56,7 +56,7 @@ Popup {
                id: icon
                horizontalAlignment: Image.AlignRight
                source: "../resources/arrow.svg";
-               sourceSize.height: textField.height
+               sourceSize.height: parent.height
                sourceSize.width: height
                x: comboBox.width - sourceSize.height
            }
@@ -111,7 +111,7 @@ Popup {
             text: "Нет доступных брендов!"
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
-            color: "#707070"
+            color: "gray"
         }
         RecButton {
             height: parent.height/3

@@ -36,9 +36,6 @@ Drawer {
                     drawer.close();
                 }
             }
-         }
-        MenuItem {
-            text: qsTr("Добавить проект")
         }
         MenuItem {
             text: qsTr("Добавить каталог мулине")
@@ -49,6 +46,19 @@ Drawer {
         }
         MenuItem {
             text: qsTr("Подобрать похожий оттенок")
+            onClicked: {
+                stack.push("qrc:/pages/FindSimilarColorsPage.qml");
+                drawer.close();
+                toolBar.pageTitle = "Подбор похожих оттенков"
+            }
+        }
+        MenuItem {
+            text: qsTr("О приложении")
+            onClicked: {
+                stack.push("qrc:/pages/AboutPage.qml");
+                drawer.close();
+                toolBar.pageTitle = "О приложении"
+            }
         }
         AddBrandPopup {
             id: addBrandPopup

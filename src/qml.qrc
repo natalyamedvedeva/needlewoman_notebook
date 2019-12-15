@@ -6,7 +6,9 @@
         <file>resources/more_icon.svg</file>
         <file>resources/check.svg</file>
         <file>resources/arrow.svg</file>
+        <file>resources/arrow_black.svg</file>
         <file>resources/back.svg</file>
+        <file>resources/search.svg</file>
         <file>resources/calibri.ttf</file>
         <file>controls/TriangularTabButton.qml</file>
         <file>utils/Units.qml</file>
@@ -28,5 +30,9 @@
         <file>pages/MenuPage.qml</file>
         <file>controls/MenuItem.qml</file>
         <file>pages/AddBrandPopup.qml</file>
+        <file>utils/RgbToLab.js</file>
+        <file>pages/FindSimilarColorsPage.qml</file>
+        <file>table_controls/SimilarFlossTable.qml</file>
+        <file>pages/AboutPage.qml</file>
     </qresource>
 </RCC>

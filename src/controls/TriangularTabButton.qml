@@ -9,13 +9,14 @@ import"../utils/Database.js" as DB
 TabButton {
     id: tabButton
     property alias buttonText: buttonText.text
-    property alias color: background.color
+    property bool active: false
     property int brand_id: 0
     width: Styles.tabButton.width
     height: Styles.tabButton.height
     anchors.bottom: parent.bottom
     background:  TabButtonShape {
         id: background
+        color: active ? Styles.colorTheme.active : Styles.colorTheme.notActive
     }
     Text {
         id: buttonText
@@ -26,7 +27,9 @@ TabButton {
         font.pixelSize: Styles.font.normal
     }
     onPressAndHold: {
-        contextMenu.popup();
+        if (active) {
+            contextMenu.popup();
+        }
     }
 
     Menu {

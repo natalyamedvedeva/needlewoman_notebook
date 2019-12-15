@@ -5,10 +5,14 @@ import QtGraphicalEffects 1.0
 import Styles 1.0
 import Units 1.0
 import "../pages"
+import "../utils/RgbToLab.js" as RGB
 
 ToolBar {
-    property alias filter: textField.text
+    property alias filter: searchTextField.text
     property alias available: comboBox.currentIndex
+    property alias searchTextField: searchTextField
+    property alias comboBox: comboBox
+    property string pageTitle: ""
     width: parent.width
     height: Styles.toolBar.height
     background: Rectangle {
@@ -18,38 +22,39 @@ ToolBar {
     RowLayout {
         anchors.fill: parent
         ToolButton {
-            Layout.leftMargin: (Styles.toolBar.height - textField.height - width + icon.width)/2
-            icon.source: "../resources/menu_icon.svg"
+            Layout.leftMargin: (Styles.toolBar.height - searchTextField.height - width + icon.width)/2
+            icon.source: stack.depth > 1 ? "../resources/back.svg" : "../resources/menu_icon.svg"
             icon.color: "white"
             background: Rectangle {
                 anchors.fill: parent
                 color: Styles.colorTheme.background
             }
             onClicked: {
-                menu.open();
+                if (stack.depth > 1) {
+                    stack.pop();
+                } else {
+                    menu.open();
+                }
             }
-        }
-        MenuPage {
-            id: menu
         }
 
         TextField {
-            id: textField
+            id: searchTextField
+            visible: stack.depth === 1
             font.pixelSize: Styles.font.normal
             inputMethodHints: Qt.ImhNoPredictiveText
             font.family: Styles.font.family
+            selectByMouse: true
             background: Rectangle {
             }
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignVCenter
             placeholderText: qsTr("Найти оттенок...")
-            onTextChanged: {
-                colorBasePage.update();
-            }
         }
         ComboBox {
+            visible: stack.depth === 1
             id: comboBox
-            Layout.rightMargin: (Styles.toolBar.height - textField.height)/2
+            Layout.rightMargin: (Styles.toolBar.height - searchTextField.height)/2
             Layout.preferredWidth: Units.dp(122)
             Layout.alignment: Qt.AlignVCenter
             model: [qsTr("Все"), qsTr("В наличии"), qsTr("Отсутствуют")]
@@ -78,7 +83,7 @@ ToolBar {
                id: icon
                horizontalAlignment: Image.AlignRight
                source: "../resources/arrow.svg";
-               sourceSize.height: textField.height
+               sourceSize.height: searchTextField.height
                sourceSize.width: height
                x: comboBox.width - sourceSize.height
            }
@@ -90,9 +95,17 @@ ToolBar {
                horizontalAlignment: Text.AlignRight
                elide: Text.ElideRight
            }
-           onCurrentIndexChanged: {
-               colorBasePage.update();
-           }
+        }
+        Text {
+            id: pageName
+            text: pageTitle
+            visible: stack.depth > 1
+            Layout.fillWidth: true
+            color: "white"
+            font.pixelSize: Styles.font.large
+            font.family: Styles.font.family
+            font.weight: Font.DemiBold
+            Layout.alignment: Qt.AlignVCenter
         }
     }
 }

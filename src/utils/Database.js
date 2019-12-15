@@ -160,3 +160,64 @@ function deleteBrand(id) {
     });
 }
 
+function getBrands() {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, name FROM brand');
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                         id: parseInt(result.rows.item(i).id),
+                         name: result.rows.item(i).name});
+        }
+    });
+    return array;
+}
+
+function getFloss(brand_id) {
+    const db = getHandle();
+    let array = [];
+    db.transaction(function (tx) {
+        const result = tx.executeSql('SELECT id, number FROM floss WHERE brand_id = ?', [brand_id]);
+        for (let i = 0; i < result.rows.length; i++) {
+            array.push({
+                   number: result.rows.item(i).number,
+                   id: result.rows.item(i).id
+                 });
+        }
+    });
+    return array;
+}
+
+function getColors() {
+    const db = getHandle();
+        let array = [];
+        db.transaction(function (tx) {
+            const result = tx.executeSql('SELECT id, rgb_color FROM floss');
+            for (let i = 0; i < result.rows.length; i++) {
+                array.push({
+                       id: result.rows.item(i).id,
+                       rgb: result.rows.item(i).rgb_color
+                     });
+            }
+        });
+        return array;
+}
+
+function getSimilarFlossInfo(idArray) {
+    const db = getHandle();
+        let array = [];
+        db.transaction(function (tx) {
+            idArray.forEach(item => {
+                                var result = tx.executeSql('SELECT rgb_color, description, number, COALESCE(quantity, 0) AS q, brand.name as brand_name FROM floss LEFT JOIN floss_in_stock ON floss.id = floss_in_stock.floss_id LEFT JOIN brand ON floss.brand_id = brand.id WHERE floss.id = ?', [item.id]);
+                                array.push({ brand: result.rows.item(0).brand_name,
+                                             flossColor: result.rows.item(0).rgb_color,
+                                             name: result.rows.item(0).description,
+                                             number: result.rows.item(0).number,
+                                             quantity: result.rows.item(0).q
+                                           });
+                            });
+        });
+        return array;
+}
+

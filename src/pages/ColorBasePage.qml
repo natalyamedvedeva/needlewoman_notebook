@@ -9,6 +9,7 @@ import "../utils/Database.js" as DB
 
 Page {
     property alias flossModel: tabBarRepeater.model
+
     TabBar {
         property TabButton prevItem: currentItem
 
@@ -31,10 +32,10 @@ Page {
         }
         onCurrentItemChanged: {
             if (prevItem != null) {
-                prevItem.color = Styles.colorTheme.notActive;
+                prevItem.active = false;
             }
             if (currentItem != null) {
-                currentItem.color = Styles.colorTheme.active;
+                currentItem.active = true;
                 prevItem = currentItem;
             }
         }
@@ -61,6 +62,19 @@ Page {
 
     }
 
+    Text {
+        visible: flossModel.count === 0
+        anchors.fill: parent
+        horizontalAlignment: Text.AlignHCenter
+        verticalAlignment: Text.AlignVCenter
+        text: qsTr("Здесь ничего нет!\n Перейдите в меню, чтобы начать работу.")
+        color: "gray"
+        font {
+            family: Styles.font.family
+            pixelSize: Styles.font.normal
+        }
+    }
+
     Component.onCompleted: {
         DB.init();
         DB.fillDatabase();
@@ -84,7 +98,7 @@ Page {
         for (var i = 0; i < flossModel.count; i++) {
             if (flossModel.get(i).id === id) {
                 if (tabBar.currentIndex === 0 && i === 0 && flossModel.count > 1) {
-                    tabBar.itemAt(1).color = Styles.colorTheme.active;
+                    tabBar.itemAt(1).active = true;
                     tabBar.prevItem = tabBar.itemAt(1);
                 }
                 flossModel.remove(i);

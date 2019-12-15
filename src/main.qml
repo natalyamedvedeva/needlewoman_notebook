@@ -8,6 +8,8 @@ import "pages"
 import "utils/Database.js" as DB
 
 ApplicationWindow {
+    property var colors: []
+
     id: root
     visible: true
     width: 360
@@ -22,11 +24,32 @@ ApplicationWindow {
             initialItem: colorBasePage
             anchors.fill: parent
     }
+    MenuPage {
+        id: menu
+    }
+
     ColorBasePage {
         id: colorBasePage
-        anchors.fill: parent
+        Connections {
+            target: toolBar.searchTextField
+            onTextChanged: {
+                colorBasePage.update();
+            }
+        }
+        Connections {
+            target: toolBar.comboBox
+            onCurrentIndexChanged: {
+                colorBasePage.update();
+            }
+        }
     }
-    function isLandscape() {
-        return root.width > root.height
+
+    WorkerScript {
+        id: worker
+        source: "utils/RgbToLab.js"
+        onMessage: colors = messageObject.reply
+    }
+    Component.onCompleted: {
+        worker.sendMessage(DB.getColors());
     }
 }
